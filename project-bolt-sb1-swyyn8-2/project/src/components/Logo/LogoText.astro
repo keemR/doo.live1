@@ -1,0 +1,16 @@
+---
+interface Props {
+  class?: string;
+}
+
+const { class: className = '' } = Astro.props;
+---
+
+<div class:list={["flex flex-col", className]}>
+  <span class="text-2xl font-light tracking-tight bg-gradient-to-r from-emerald-500 via-teal-500 to-emerald-600 bg-clip-text text-transparent">
+    doorillio
+  </span>
+  <span class="block text-[6px] text-gray-500 tracking-[0.2em] uppercase font-medium">
+    Health & Wellness
+  </span>
+</div>

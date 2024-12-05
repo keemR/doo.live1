@@ -1,0 +1,43 @@
+---
+interface Props {
+  class?: string;
+}
+
+const { class: className = '' } = Astro.props;
+---
+
+<div class:list={["relative", className]}>
+  <svg class="w-full h-full" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- Base hexagon -->
+    <path
+      d="M20 2L35.3205 11V29L20 38L4.67949 29V11L20 2Z"
+      class="fill-emerald-500"
+    />
+    <!-- Inner hexagon -->
+    <path
+      d="M20 6L31.3205 12.5V25.5L20 32L8.67949 25.5V12.5L20 6Z"
+      class="fill-emerald-600"
+    />
+    <!-- Abstract D shape -->
+    <path
+      d="M16 12C16 12 24 15 24 20C24 25 16 28 16 28V12Z"
+      class="fill-white"
+    />
+    <!-- Decorative lines -->
+    <path
+      d="M14 16L26 16M14 20L26 20M14 24L26 24"
+      stroke="white"
+      stroke-width="0.5"
+      stroke-opacity="0.6"
+    />
+    <!-- Shine effect -->
+    <circle
+      cx="28"
+      cy="12"
+      r="1.5"
+      class="fill-white"
+      style="filter: blur(1px);"
+    />
+  </svg>
+  <div class="absolute inset-0 bg-gradient-to-tr from-emerald-500/20 to-transparent animate-pulse-subtle rounded-full"></div>
+</div>

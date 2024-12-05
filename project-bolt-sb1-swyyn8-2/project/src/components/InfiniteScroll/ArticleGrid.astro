@@ -1,0 +1,24 @@
+---
+import ArticleCard from '../ArticleCard.astro';
+import AdPlacement from '../AdPlacement.astro';
+import type { Article } from '../../types';
+
+interface Props {
+  articles: Article[];
+}
+
+const { articles } = Astro.props;
+---
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8" id="articles-container">
+  {articles.map((article, index) => (
+    <>
+      <ArticleCard {...article} />
+      {(index + 1) % 6 === 0 && (
+        <div class="md:col-span-2">
+          <AdPlacement slot="in-content" />
+        </div>
+      )}
+    </>
+  ))}
+</div>

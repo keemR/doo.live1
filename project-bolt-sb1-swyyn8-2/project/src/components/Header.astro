@@ -1,0 +1,64 @@
+---
+import Logo from './Logo.astro';
+import SearchBar from './SearchBar.astro';
+import { mainNavigation } from '../data/navigation';
+import SocialIcons from './SocialIcons.astro';
+---
+
+<header class="bg-white shadow-sm sticky top-0 z-50">
+  <div class="container mx-auto px-4">
+    <div class="flex items-center justify-between h-16">
+      <div class="flex items-center flex-1">
+        <a href="/" class="flex items-center">
+          <Logo />
+        </a>
+        
+        <nav class="hidden xl:flex items-center space-x-6 ml-12">
+          {mainNavigation.map((item) => (
+            <a
+              href={item.href}
+              class="text-gray-700 hover:text-emerald-500 transition-colors text-sm font-medium whitespace-nowrap group"
+            >
+              <span class="inline-block pb-1 border-b-2 border-transparent group-hover:border-emerald-500">
+                {item.name}
+              </span>
+            </a>
+          ))}
+        </nav>
+      </div>
+
+      <div class="flex items-center space-x-6">
+        <SearchBar />
+        <SocialIcons class="hidden md:flex" />
+        <button class="xl:hidden text-gray-700 hover:text-emerald-500">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile menu -->
+  <div class="hidden xl:hidden bg-white border-t border-gray-100">
+    <nav class="px-4 py-2 space-y-1">
+      {mainNavigation.map((item) => (
+        <a
+          href={item.href}
+          class="block px-4 py-3 text-base font-medium text-gray-700 hover:text-emerald-500 hover:bg-gray-50 rounded-lg"
+        >
+          {item.name}
+        </a>
+      ))}
+    </nav>
+  </div>
+</header>
+
+<script>
+  const menuButton = document.querySelector('button.xl\\:hidden');
+  const mobileMenu = document.querySelector('div.hidden.xl\\:hidden');
+
+  menuButton?.addEventListener('click', () => {
+    mobileMenu?.classList.toggle('hidden');
+  });
+</script>

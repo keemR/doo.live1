@@ -1,0 +1,28 @@
+---
+import Button from './ui/Button.astro';
+import Input from './ui/Input.astro';
+---
+
+<div class="bg-gradient-to-r from-emerald-500 to-teal-600 p-8 rounded-lg shadow-md text-white">
+  <div class="flex flex-col items-center text-center">
+    <svg class="w-12 h-12 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+    </svg>
+    <h2 class="text-2xl font-bold mb-2">Get Health Tips in Your Inbox</h2>
+    <p class="text-white/80 mb-6">Join 50,000+ subscribers who receive our weekly health insights.</p>
+    <form class="w-full max-w-md">
+      <div class="flex gap-2">
+        <Input
+          type="email"
+          placeholder="Your email address"
+          required
+          class="flex-1"
+        />
+        <Button type="submit" variant="secondary">
+          Subscribe
+        </Button>
+      </div>
+    </form>
+    <p class="text-sm mt-4 text-white/60">No spam. Unsubscribe anytime.</p>
+  </div>
+</div>

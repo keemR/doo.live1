@@ -1,0 +1,108 @@
+---
+import ArticleCard from './ArticleCard.astro';
+import AdPlacement from './AdPlacement.astro';
+import type { Article } from '../types';
+
+interface Props {
+  initialArticles: Article[];
+}
+
+const { initialArticles } = Astro.props;
+---
+
+<div class="infinite-scroll-container">
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-8" id="articles-container">
+    {initialArticles.map((article, index) => (
+      <>
+        <ArticleCard {...article} />
+        {/* Insert ad after every 6th article */}
+        {(index + 1) % 6 === 0 && (
+          <div class="md:col-span-2">
+            <AdPlacement slot="in-content" />
+          </div>
+        )}
+      </>
+    ))}
+  </div>
+  <div class="loading-spinner hidden mt-8 text-center">
+    <div class="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-emerald-600 border-r-transparent"></div>
+  </div>
+</div>
+
+<script>
+import 'intersection-observer';
+
+let page = 1;
+let loading = false;
+const articlesContainer = document.getElementById('articles-container');
+const loadingSpinner = document.querySelector('.loading-spinner');
+
+// Create intersection observer
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting && !loading) {
+      loadMoreArticles();
+    }
+  });
+}, { rootMargin: '100px' });
+
+// Observe the loading spinner
+if (loadingSpinner) {
+  observer.observe(loadingSpinner);
+}
+
+async function loadMoreArticles() {
+  try {
+    loading = true;
+    loadingSpinner?.classList.remove('hidden');
+
+    // Fetch more articles
+    const response = await fetch(`/api/articles?page=${page}`);
+    const newArticles = await response.json();
+
+    if (newArticles.length === 0) {
+      observer.disconnect();
+      loadingSpinner?.classList.add('hidden');
+      return;
+    }
+
+    // Render new articles
+    newArticles.forEach((article, index) => {
+      const articleElement = createArticleElement(article);
+      articlesContainer?.appendChild(articleElement);
+
+      // Add ad after every 6th article
+      if ((index + 1) % 6 === 0) {
+        const adElement = createAdElement();
+        articlesContainer?.appendChild(adElement);
+      }
+    });
+
+    page++;
+  } catch (error) {
+    console.error('Error loading more articles:', error);
+  } finally {
+    loading = false;
+    loadingSpinner?.classList.add('hidden');
+  }
+}
+
+function createArticleElement(article) {
+  const div = document.createElement('div');
+  div.className = 'article-card';
+  // Implement article card HTML structure
+  return div;
+}
+
+function createAdElement() {
+  const div = document.createElement('div');
+  div.className = 'md:col-span-2';
+  div.innerHTML = `<div class="min-h-[280px] w-full bg-gray-100 flex items-center justify-center">
+    <div class="text-center p-4">
+      <div class="text-sm text-gray-500">Advertisement</div>
+      <div class="ad-container"></div>
+    </div>
+  </div>`;
+  return div;
+}
+</script>

@@ -1,0 +1,32 @@
+---
+import LogoIcon from './LogoIcon.astro';
+import LogoText from './LogoText.astro';
+
+interface Props {
+  class?: string;
+}
+
+const { class: className = '' } = Astro.props;
+---
+
+<div class:list={["flex items-center gap-3", className]}>
+  <LogoIcon class="w-9 h-9" />
+  <LogoText />
+</div>
+
+<style>
+@keyframes pulse-subtle {
+  0%, 100% {
+    opacity: 0.1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.3;
+    transform: scale(1.1);
+  }
+}
+
+.animate-pulse-subtle {
+  animation: pulse-subtle 4s ease-in-out infinite;
+}
+</style>

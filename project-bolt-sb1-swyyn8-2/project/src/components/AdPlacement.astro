@@ -1,0 +1,34 @@
+---
+interface Props {
+  slot: 'sidebar' | 'in-content' | 'banner';
+  class?: string;
+}
+
+const { slot, class: className = '' } = Astro.props;
+
+// Responsive ad sizes based on placement
+const adSizes = {
+  'sidebar': 'min-h-[250px] w-full',
+  'in-content': 'min-h-[280px] w-full',
+  'banner': 'min-h-[90px] w-full'
+};
+---
+
+<div class:list={["bg-gray-100 flex items-center justify-center", adSizes[slot], className]}>
+  <div class="text-center p-4">
+    <div class="text-sm text-gray-500">Advertisement</div>
+    <!-- Ad placement container -->
+    <div id={`ad-${slot}`} class="w-full h-full">
+      <!-- Ad code will be injected here -->
+    </div>
+  </div>
+</div>
+
+<script define:vars={{ slot }}>
+// Placeholder for ad initialization
+document.addEventListener('DOMContentLoaded', () => {
+  // Initialize ads when the component mounts
+  // This is where you would put your actual ad code
+  console.log(`Ad slot ${slot} ready for initialization`);
+});
+</script>

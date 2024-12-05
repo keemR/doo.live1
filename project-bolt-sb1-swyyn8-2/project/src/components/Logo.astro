@@ -1,0 +1,36 @@
+---
+interface Props {
+  class?: string;
+}
+
+const { class: className = '' } = Astro.props;
+---
+
+<div class:list={["flex items-center", className]}>
+  <svg class="w-8 h-8 text-emerald-500" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M12 2L1 21h22L12 2z" fill="currentColor" />
+    <path d="M12 6l7.5 13h-15L12 6z" fill="white" />
+    <path class="animate-pulse-subtle" d="M12 10l4.5 7.8h-9L12 10z" fill="currentColor" opacity="0.3" />
+  </svg>
+  <div class="ml-2">
+    <span class="text-2xl font-light tracking-wide bg-clip-text text-transparent bg-gradient-to-r from-emerald-500 to-teal-600">doorillio</span>
+    <span class="block text-[6px] text-gray-500 -mt-1 tracking-[0.25em] uppercase font-medium">Health & Wellness</span>
+  </div>
+</div>
+
+<style>
+@keyframes pulse-subtle {
+  0%, 100% {
+    opacity: 0.2;
+    transform: translateY(0);
+  }
+  50% {
+    opacity: 0.4;
+    transform: translateY(-1px);
+  }
+}
+
+.animate-pulse-subtle {
+  animation: pulse-subtle 3s ease-in-out infinite;
+}
+</style>

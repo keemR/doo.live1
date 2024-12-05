@@ -1,0 +1,56 @@
+---
+import Layout from '../layouts/Layout.astro';
+import FeaturedArticle from '../components/FeaturedArticle.astro';
+import TrendingArticles from '../components/TrendingArticles.astro';
+import PopularTopics from '../components/PopularTopics.astro';
+import CategoryGrid from '../components/CategoryGrid.astro';
+import InfiniteScroll from '../components/InfiniteScroll.astro';
+import AdPlacement from '../components/AdPlacement.astro';
+import { featuredArticle, latestArticles } from '../data/articles';
+
+const metaDescription = "Discover science-backed health tips, nutrition advice, and wellness strategies for a better you. Expert advice on fitness, mental health, and holistic well-being.";
+---
+
+<Layout 
+  title="Your Guide to a Healthier Life" 
+  description={metaDescription}
+>
+  <!-- Top Banner Ad -->
+  <AdPlacement slot="banner" class="mb-8" />
+
+  <div class="mb-12">
+    <h1 class="text-4xl font-bold text-gray-900 text-center mb-4">
+      Your Guide to a Healthier Life
+    </h1>
+    <p class="text-xl text-gray-600 text-center max-w-2xl mx-auto">
+      {metaDescription}
+    </p>
+  </div>
+
+  <CategoryGrid />
+
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+    <div class="lg:col-span-8">
+      <section class="mb-12">
+        <FeaturedArticle {...featuredArticle} />
+      </section>
+
+      <section>
+        <div class="flex items-center justify-between mb-8">
+          <h2 class="text-2xl font-bold text-gray-900">Latest Articles</h2>
+          <a href="/articles" class="text-emerald-600 hover:text-emerald-700">
+            View All Articles →
+          </a>
+        </div>
+        <InfiniteScroll initialArticles={latestArticles} />
+      </section>
+    </div>
+
+    <aside class="lg:col-span-4 space-y-8">
+      <AdPlacement slot="sidebar" />
+      <TrendingArticles />
+      <PopularTopics />
+      <AdPlacement slot="sidebar" />
+    </aside>
+  </div>
+</Layout>

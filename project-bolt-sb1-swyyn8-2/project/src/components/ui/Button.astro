@@ -1,0 +1,27 @@
+---
+interface Props {
+  type?: 'button' | 'submit';
+  variant?: 'primary' | 'secondary' | 'outline';
+  class?: string;
+}
+
+const { 
+  type = 'button', 
+  variant = 'primary',
+  class: className = '' 
+} = Astro.props;
+
+const baseStyles = "px-6 py-3 rounded-lg font-semibold transition-colors";
+const variants = {
+  primary: "bg-emerald-600 text-white hover:bg-emerald-700",
+  secondary: "bg-white text-emerald-600 hover:bg-gray-100",
+  outline: "border-2 border-emerald-600 text-emerald-600 hover:bg-emerald-50"
+};
+---
+
+<button 
+  type={type} 
+  class:list={[baseStyles, variants[variant], className]}
+>
+  <slot />
+</button>

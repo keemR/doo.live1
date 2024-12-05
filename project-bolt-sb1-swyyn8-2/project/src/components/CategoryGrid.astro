@@ -1,0 +1,44 @@
+---
+const categories = [
+  {
+    name: 'Nutrition',
+    description: 'Healthy eating tips and diet advice',
+    icon: 'M3 6v18h18v-18h-18zm5 14c0 .552-.448 1-1 1s-1-.448-1-1v-10c0-.552.448-1 1-1s1 .448 1 1v10zm5 0c0 .552-.448 1-1 1s-1-.448-1-1v-10c0-.552.448-1 1-1s1 .448 1 1v10zm5 0c0 .552-.448 1-1 1s-1-.448-1-1v-10c0-.552.448-1 1-1s1 .448 1 1v10z',
+    href: '/nutrition'
+  },
+  {
+    name: 'Fitness',
+    description: 'Workouts and exercise guides',
+    icon: 'M13 6v18h-2v-18h2zm5 0v18h-2v-18h2zm-10 0v18h-2v-18h2zm-5 0v18h-2v-18h2z',
+    href: '/fitness'
+  },
+  {
+    name: 'Mental Health',
+    description: 'Tips for emotional well-being',
+    icon: 'M12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10-10-4.477-10-10 4.477-10 10-10zm0 2c-4.418 0-8 3.582-8 8s3.582 8 8 8 8-3.582 8-8-3.582-8-8-8zm0 3c1.657 0 3 1.343 3 3s-1.343 3-3 3-3-1.343-3-3 1.343-3 3-3z',
+    href: '/mental-health'
+  },
+  {
+    name: 'Wellness',
+    description: 'Holistic health and lifestyle',
+    icon: 'M12 21.35l-1.45-1.32c-5.15-4.67-8.55-7.75-8.55-11.53 0-3.08 2.42-5.5 5.5-5.5 1.74 0 3.41.81 4.5 2.09 1.09-1.28 2.76-2.09 4.5-2.09 3.08 0 5.5 2.42 5.5 5.5 0 3.78-3.4 6.86-8.55 11.54l-1.45 1.31z',
+    href: '/wellness'
+  }
+];
+---
+
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+  {categories.map((category) => (
+    <a href={category.href} class="group">
+      <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow">
+        <div class="w-12 h-12 bg-emerald-100 rounded-lg flex items-center justify-center mb-4 group-hover:bg-emerald-200 transition-colors">
+          <svg class="w-6 h-6 text-emerald-600" fill="currentColor" viewBox="0 0 24 24">
+            <path d={category.icon}></path>
+          </svg>
+        </div>
+        <h3 class="text-lg font-semibold text-gray-900 mb-2">{category.name}</h3>
+        <p class="text-gray-600 text-sm">{category.description}</p>
+      </div>
+    </a>
+  ))}
+</div>

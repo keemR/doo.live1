@@ -1,0 +1,32 @@
+---
+import type { Article } from '../types';
+import SocialShare from './SocialShare.astro';
+
+interface Props extends Article {}
+
+const { title, description, image, category, href } = Astro.props;
+
+// Use relative URLs for development and full URLs for production
+const baseUrl = import.meta.env.PROD ? 'https://healthylife.com' : '';
+const fullUrl = `${baseUrl}${href}`;
+
+// Ensure image URL is absolute
+const imageUrl = image.startsWith('http') ? image : `${baseUrl}${image}`;
+---
+
+<article class="bg-white rounded-lg shadow-md overflow-hidden">
+  <img src={imageUrl} alt={title} class="w-full h-48 object-cover" />
+  <div class="p-6">
+    <span class="text-emerald-600 text-sm font-medium">{category}</span>
+    <h3 class="text-xl font-bold text-gray-900 mt-2">
+      <a href={href} class="hover:text-emerald-600">{title}</a>
+    </h3>
+    <p class="text-gray-600 mt-2">{description}</p>
+    <div class="mt-4 flex items-center justify-between">
+      <a href={href} class="text-emerald-600 hover:text-emerald-700">
+        Read More →
+      </a>
+      <SocialShare url={fullUrl} title={title} />
+    </div>
+  </div>
+</article>
